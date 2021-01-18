@@ -1,0 +1,64 @@
+openapi: "3.0.0"
+
+info:
+  version: "2019-06-08T17:20:44Z"
+  title: "API"
+
+servers: 
+  - url: "https://h3h5agj1mi.execute-api.sa-east-1.amazonaws.com/staging"
+ 
+tags:
+  -
+    name: Skel
+    description: 
+      "Olha, você pode usar ```Markdown``` aqui
+
+
+      Pra pular linha, enter duas vezes
+
+      # Tudo funciona
+
+      até os títulos
+      "
+
+paths:
+  /hello/{MEU_PARAM}:
+    get:
+      summary: O que isso faz?
+      description: Detalhe o funcionamento
+      tags: 
+        - Skel
+      parameters:
+        - name: "MEU_PARAM"
+          in: "path"
+          required: true
+          description: O que é o parametro?
+          schema:
+            type: integer
+            example: 52154
+      responses:
+        200:
+          description: "Detalhamento da resposta"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MODELO"
+        404:
+          description: "Detalhamento da resposta"
+      x-attr-serverless:
+        functionName: hello
+        cors: true
+components:
+  schemas:
+    MODELO:
+      type: "object"
+      properties:
+        ATRIBUTO1:
+          description: "Descrição do ATRIBUTO1"
+          type: "string"
+        ATRIBUTO2:
+          description: "Descrição do ATRIBUTO2"
+          type: "string"
+      example:
+        ATRIBUTO1: "BLABLA"
+        ATRIBUTO2: "BLOBLO"

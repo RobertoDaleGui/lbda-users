@@ -1,0 +1,35 @@
+service: all-in-one-${opt:stage, 'staging'}
+
+custom:
+  stage: ${opt:stage, 'staging'}
+  region: "sa-east-1"
+  serverless-offline:
+    port: 6000
+  staging:
+    stage: staging
+  production:
+    stage: production
+  beta:
+    stage: beta
+  swaggerApi:
+    swagger: ${file(docs/swagger.yaml)}
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: ${self:custom.stage}
+  region: "sa-east-1"
+  environment:
+    AWS_DEPLOY_REGION: ${self:custom.region}
+    STAGE: ${self:custom.${self:custom.stage}.stage}
+  # deploymentBucket:
+  #   name: serverless.roberlove.deployment
+
+functions:
+  hello:
+    handler: src/handler.hello
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-swagger-api
+  
